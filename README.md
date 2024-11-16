@@ -1,14 +1,22 @@
 # DebounceControl
 
-> React component that debounce state
+> React component that debounce state. Can be used with [any form element](#demo).
 
-## Install
+## ✨ Features
+
+- Minimal re-renders
+- Works with any form element
+- No dependencies
+- TypeScript support
+- Custom delay
+
+## 🚀 Install
 
 ```bash
 npm install debounce-control
 ```
 
-## Usage
+## 🧑‍💻 Usage
 
 ```tsx
 import React, { useState } from "react";
@@ -18,8 +26,8 @@ const App = () => {
   const [text, setText] = useState("");
 
   const onChange = (value: string) => {
-    setText(value)
-  }
+    setText(value);
+  };
 
   return (
     <DebounceControl
@@ -28,7 +36,7 @@ const App = () => {
       onDebouncedChange={onChange}
       render={({ value, onChange }) => (
         <input
-          type="text"
+          type='text'
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />
@@ -39,3 +47,26 @@ const App = () => {
 
 export default App;
 ```
+
+## 📺 Demo
+
+### Input
+
+<img src="./assets/demo/Input.gif" alt="Demo with Input Component" />
+
+### Slider
+
+<img src="./assets/demo/Slider.gif" alt="Demo with Slider Component" />
+
+### Resizable
+
+<img src="./assets/demo/Resizable.gif" alt="Demo with Resizable Component" />
+
+## 📎 Props
+
+| Props             | Default | Description                                       |
+| ----------------- | ------- | ------------------------------------------------- |
+| value             |         | Original state value                              |
+| delay             | 500     | Delay in milliseconds                             |
+| onDebouncedChange |         | Callback function that will be called after delay |
+| render            |         | Render function to use your form component        |
