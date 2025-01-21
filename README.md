@@ -25,7 +25,7 @@ import DebounceControl from "debounce-control";
 const App = () => {
   const [text, setText] = useState("");
 
-  const onChange = (value: string) => {
+  const onDebouncedChange = (value: string) => {
     setText(value);
   };
 
@@ -33,7 +33,7 @@ const App = () => {
     <DebounceControl
       value={text}
       delay={300}
-      onDebouncedChange={onChange}
+      onDebouncedChange={onDebouncedChange}
       render={({ value, onChange }) => (
         <input
           type='text'
