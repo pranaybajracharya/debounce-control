@@ -24,6 +24,7 @@ function DebounceControl<TValue>({
   onDebouncedChange,
 }: DebounceInputProps<TValue>) {
   const initialRef = useRef(true);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [internalValue, setInternalValue] = useState(value);
 
   useEffect(() => {
@@ -37,15 +38,22 @@ function DebounceControl<TValue>({
   }, [value]);
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      onDebouncedChange(internalValue as Maybe<TValue>);
-    }, delay);
-
-    return () => clearTimeout(timeoutId);
-  }, [internalValue, delay]);
+    return () => {
+      if (timeoutRef?.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const onChange = (newValue: TValue) => {
     setInternalValue(newValue);
+
+    if (timeoutRef?.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    timeoutRef.current = setTimeout(() => {
+      onDebouncedChange(newValue as Maybe<TValue>);
+    }, delay);
   };
 
   return render({ value: internalValue, onChange });
